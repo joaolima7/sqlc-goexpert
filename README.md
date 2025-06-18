@@ -28,3 +28,10 @@ Para reverter a última migração aplicada, você pode usar o seguinte comando:
 migrate -path=sql/migrations -database "mysql://root:root@tcp(localhost:3306)/mydb" -verbose down
 ```
 Este comando reverte a última migração aplicada no banco de dados. Assim como na aplicação, a opção `-verbose` fornece detalhes sobre o processo de reversão.
+
+## Explicação do Makefile
+O Makefile presente no projeto contém três comandos principais para facilitar o gerenciamento de migrações:
+- `createmigration`: Este comando cria uma nova migração com a extensão `.sql` no diretório `sql/migrations`. Ele utiliza o comando `migrate create` com as opções apropriadas para definir o nome e a sequência da migração.
+- `migrate`: Este comando aplica todas as migrações pendentes no banco de dados especificado. Ele utiliza o comando `migrate up` com o caminho das migrações e a string de conexão do banco de dados.
+- `migrate-down`: Este comando reverte a última migração aplicada no banco de dados. Ele utiliza o comando `migrate down` com o caminho das migrações e a string de conexão do banco de dados.
+Esses comandos são definidos como `.PHONY`, o que significa que eles não correspondem a arquivos reais, mas sim a ações que devem ser executadas quando chamados. Isso garante que o Makefile sempre execute os comandos, independentemente da existência de arquivos com os mesmos nomes.
